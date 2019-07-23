@@ -1,4 +1,5 @@
 const crypto = require("crypto")
+const { createFilePath } = require("gatsby-source-filesystem")
 
 exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createTypes } = actions
@@ -14,22 +15,23 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         id: { type: "ID!" },
         slug: { type: "String!" },
         title: { type: "String!" },
-        date: {
-          type: "Date!",
-          extensions: {
-            dateformat: {
-              formatString: "YYYY-MM-DD",
+        date: { type: "Date!", extensions: { dateformat: {} } },
+        excerpt: {
+          type: "String!",
+          args: {
+            pruneLength: {
+              type: `Int`,
+              defaultValue: 140,
             },
           },
         },
-        excerpt: { type: "String!" },
         body: {
           type: "String!",
           resolve: (source, args, context, info) => {
-            const type = info.schema.getType("MarkdownRemark")
             const mdNode = context.nodeModel.getNodeById({
               id: source.parent,
             })
+            const type = info.schema.getType("MarkdownRemark")
             const resolver = type.getFields()["html"].resolve
             return resolver(mdNode, {}, context, { fieldName: "html" })
           },
@@ -39,15 +41,24 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   )
 }
 
-exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
-  const { createNodeField, createNode, createParentChildLink } = actions
+exports.onCreateNode = (
+  { node, actions, getNode, createNodeId },
+  pluginOptions,
+) => {
+  const { createNode } = actions
 
   if (node.internal.type === "MarkdownRemark") {
     const parent = getNode(node.parent)
 
-    if (parent.sourceInstanceName === "posts") {
+    if (parent.sourceInstanceName === pluginOptions.name) {
+      const slug = createFilePath({
+        node: parent,
+        getNode,
+        basePath: pluginOptions.path,
+      })
+
       const fieldData = {
-        slug: node.frontmatter.slug,
+        slug,
         title: node.frontmatter.title,
         date: node.frontmatter.date,
         excerpt: node.frontmatter.excerpt,

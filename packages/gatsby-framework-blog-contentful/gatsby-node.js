@@ -11,16 +11,15 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
         id: { type: "ID!" },
         slug: { type: "String!" },
         title: { type: "String!" },
-        date: {
-          type: "Date!",
-          extensions: {
-            dateformat: {
-              formatString: "YYYY-MM-DD",
-            },
-          },
-        },
+        date: { type: "Date!", extensions: { dateformat: {} } },
         excerpt: {
           type: "String!",
+          args: {
+            pruneLength: {
+              type: "Int",
+              defaultValue: 140,
+            },
+          },
           resolve: async (source, args, context, info) => {
             const contentfulNode = context.nodeModel.getNodeById({
               id: source.parent,
@@ -77,7 +76,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
 }
 
 exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
-  const { createNodeField, createNode, createParentChildLink } = actions
+  const { createNode } = actions
 
   if (node.internal.type === "ContentfulBlogPost") {
     const parent = getNode(node.parent)

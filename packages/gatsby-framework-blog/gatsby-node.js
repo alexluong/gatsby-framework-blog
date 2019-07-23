@@ -9,7 +9,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       slug: String!
       title: String!
       date: Date! @dateformat
-      excerpt: String!
+      excerpt(pruneLength: Int = 140): String!
       body: String!
     }
   `

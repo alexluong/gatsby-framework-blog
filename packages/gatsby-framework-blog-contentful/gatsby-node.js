@@ -9,17 +9,44 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       interfaces: ["Node", "BlogPost"],
       fields: {
         id: { type: "ID!" },
-        title: { type: "String" },
+        slug: { type: "String!" },
+        title: { type: "String!" },
         date: {
-          type: "Date",
+          type: "Date!",
           extensions: {
             dateformat: {
               formatString: "YYYY-MM-DD",
             },
           },
         },
+        excerpt: {
+          type: "String!",
+          resolve: async (source, args, context, info) => {
+            const contentfulNode = context.nodeModel.getNodeById({
+              id: source.parent,
+            })
+            const contentfulExcerptNode = context.nodeModel.getNodeById({
+              id: contentfulNode.excerpt___NODE,
+            })
+            const markdownRemarkResolver = info.schema
+              .getType("contentfulBlogPostExcerptTextNode")
+              .getFields()["childMarkdownRemark"].resolve
+            const markdownRemarkNode = await markdownRemarkResolver(
+              contentfulExcerptNode,
+              {},
+              context,
+              { fieldName: "childMarkdownRemark" },
+            )
+            const resolver = info.schema.getType("MarkdownRemark").getFields()[
+              "html"
+            ].resolve
+            return resolver(markdownRemarkNode, {}, context, {
+              fieldName: "html",
+            })
+          },
+        },
         body: {
-          type: "String",
+          type: "String!",
           resolve: async (source, args, context, info) => {
             const contentfulNode = context.nodeModel.getNodeById({
               id: source.parent,
@@ -55,8 +82,10 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
   if (node.internal.type === "ContentfulBlogPost") {
     const parent = getNode(node.parent)
     const fieldData = {
+      slug: node.slug,
       title: node.title,
       date: node.date,
+      excerpt: "Hi",
     }
 
     createNode({

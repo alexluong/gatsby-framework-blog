@@ -12,17 +12,19 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
       },
       fields: {
         id: { type: "ID!" },
-        title: { type: "String" },
+        slug: { type: "String!" },
+        title: { type: "String!" },
         date: {
-          type: "Date",
+          type: "Date!",
           extensions: {
             dateformat: {
               formatString: "YYYY-MM-DD",
             },
           },
         },
+        excerpt: { type: "String!" },
         body: {
-          type: "String",
+          type: "String!",
           resolve: (source, args, context, info) => {
             const type = info.schema.getType("MarkdownRemark")
             const mdNode = context.nodeModel.getNodeById({
@@ -45,8 +47,10 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
 
     if (parent.sourceInstanceName === "posts") {
       const fieldData = {
+        slug: node.frontmatter.slug,
         title: node.frontmatter.title,
         date: node.frontmatter.date,
+        excerpt: node.frontmatter.excerpt,
       }
 
       createNode({

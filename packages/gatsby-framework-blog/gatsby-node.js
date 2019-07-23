@@ -6,9 +6,11 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
   const BlogPost = `
     interface BlogPost @nodeInterface {
       id: ID!
-      title: String
-      date: Date @dateformat
-      body: String
+      slug: String!
+      title: String!
+      date: Date! @dateformat
+      excerpt: String!
+      body: String!
     }
   `
 

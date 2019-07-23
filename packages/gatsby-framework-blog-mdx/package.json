@@ -1,0 +1,14 @@
+{
+  "name": "gatsby-framework-blog-mdx",
+  "version": "0.1.0",
+  "license": "MIT",
+  "peerDependencies": {
+    "@mdx-js/mdx": "^1.1.0",
+    "@mdx-js/react": "^1.0.27",
+    "gatsby": "^2.13.35",
+    "gatsby-plugin-mdx": "^1.0.15",
+    "gatsby-source-filesystem": "^2.1.6",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

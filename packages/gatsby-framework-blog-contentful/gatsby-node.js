@@ -24,23 +24,23 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
             const contentfulNode = context.nodeModel.getNodeById({
               id: source.parent,
             })
-            const contentfulExcerptNode = context.nodeModel.getNodeById({
-              id: contentfulNode.excerpt___NODE,
+            const contentfulBodyNode = context.nodeModel.getNodeById({
+              id: contentfulNode.body___NODE,
             })
             const markdownRemarkResolver = info.schema
-              .getType("contentfulBlogPostExcerptTextNode")
+              .getType("contentfulBlogPostBodyTextNode")
               .getFields()["childMarkdownRemark"].resolve
             const markdownRemarkNode = await markdownRemarkResolver(
-              contentfulExcerptNode,
+              contentfulBodyNode,
               {},
               context,
               { fieldName: "childMarkdownRemark" },
             )
             const resolver = info.schema.getType("MarkdownRemark").getFields()[
-              "html"
+              "excerpt"
             ].resolve
-            return resolver(markdownRemarkNode, {}, context, {
-              fieldName: "html",
+            return resolver(markdownRemarkNode, args, context, {
+              fieldName: "excerpt",
             })
           },
         },
@@ -65,7 +65,7 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
             const resolver = info.schema.getType("MarkdownRemark").getFields()[
               "html"
             ].resolve
-            return resolver(markdownRemarkNode, {}, context, {
+            return resolver(markdownRemarkNode, args, context, {
               fieldName: "html",
             })
           },

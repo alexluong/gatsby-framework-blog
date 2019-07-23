@@ -1,6 +1,6 @@
 const crypto = require("crypto")
 
-exports.createSchemaCustomization = ({ actions, schema }) => {
+exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
 
   const BlogPost = `

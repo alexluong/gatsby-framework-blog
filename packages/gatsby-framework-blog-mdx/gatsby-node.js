@@ -1,21 +1,13 @@
 const crypto = require("crypto")
 const { createFilePath } = require("gatsby-source-filesystem")
 
-const mdxResolverPassthrough = fieldName => async (
-  source,
-  args,
-  context,
-  info,
-) => {
-  const type = info.schema.getType(`Mdx`)
+const mdxResolverPassthrough = fieldName => (source, args, context, info) => {
   const mdxNode = context.nodeModel.getNodeById({
     id: source.parent,
   })
+  const type = info.schema.getType("Mdx")
   const resolver = type.getFields()[fieldName].resolve
-  const result = await resolver(mdxNode, args, context, {
-    fieldName,
-  })
-  return result
+  return resolver(mdxNode, args, context, { fieldName })
 }
 
 exports.createSchemaCustomization = ({ actions, schema }) => {

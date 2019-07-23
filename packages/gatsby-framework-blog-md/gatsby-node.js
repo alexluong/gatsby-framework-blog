@@ -1,6 +1,15 @@
 const crypto = require("crypto")
 const { createFilePath } = require("gatsby-source-filesystem")
 
+const mdResolverPassthrough = fieldName => (source, args, context, info) => {
+  const mdxNode = context.nodeModel.getNodeById({
+    id: source.parent,
+  })
+  const type = info.schema.getType("MarkdownRemark")
+  const resolver = type.getFields()[fieldName].resolve
+  return resolver(mdxNode, args, context, { fieldName })
+}
+
 exports.createSchemaCustomization = ({ actions, schema }) => {
   const { createTypes } = actions
 
@@ -24,17 +33,11 @@ exports.createSchemaCustomization = ({ actions, schema }) => {
               defaultValue: 140,
             },
           },
+          resolve: mdResolverPassthrough("excerpt"),
         },
         body: {
           type: "String!",
-          resolve: (source, args, context, info) => {
-            const mdNode = context.nodeModel.getNodeById({
-              id: source.parent,
-            })
-            const type = info.schema.getType("MarkdownRemark")
-            const resolver = type.getFields()["html"].resolve
-            return resolver(mdNode, {}, context, { fieldName: "html" })
-          },
+          resolve: mdResolverPassthrough("html"),
         },
       },
     }),
@@ -61,7 +64,6 @@ exports.onCreateNode = (
         slug,
         title: node.frontmatter.title,
         date: node.frontmatter.date,
-        excerpt: node.frontmatter.excerpt,
       }
 
       createNode({

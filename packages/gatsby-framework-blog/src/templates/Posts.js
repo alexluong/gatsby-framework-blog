@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import Posts from "../components/Posts"
 
 function PostsTemplate({ data, ...props }) {
-  return <Posts {...props} posts={data.allBlogPost.nodes} />
+  return <Posts {...props} data={data} posts={data.allBlogPost.nodes} />
 }
 
 export default PostsTemplate
@@ -15,6 +15,7 @@ export const query = graphql`
         id
         slug
         title
+        date(formatString: "MMMM DD, YYYY")
         excerpt
         body
       }

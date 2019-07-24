@@ -4,7 +4,15 @@ import Post from "../components/Post"
 
 function PostTemplate({ data, pathContext, ...props }) {
   const { previous, next } = pathContext
-  return <Post {...props} previous={previous} next={next} post={data.post} />
+  return (
+    <Post
+      {...props}
+      data={data}
+      post={data.post}
+      previous={previous}
+      next={next}
+    />
+  )
 }
 
 export default PostTemplate
@@ -14,7 +22,7 @@ export const query = graphql`
     post: blogPost(slug: { eq: $slug }) {
       id
       title
-      date
+      date(formatString: "MMMM DD, YYYY")
       excerpt
       body
     }

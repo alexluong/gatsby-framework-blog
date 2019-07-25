@@ -1,8 +1,6 @@
 require("dotenv").config()
 
 module.exports = (options = {}) => {
-  const { mdx = true } = options
-
   return {
     siteMetadata: {
       title: `Blog Title Placeholder`,
@@ -21,30 +19,7 @@ module.exports = (options = {}) => {
     },
     plugins: [
       "gatsby-framework-blog",
-      mdx && {
-        resolve: "gatsby-framework-blog-mdx",
-        options: {
-          fsOptions: {
-            path: "content/posts",
-            name: "mdxPosts",
-          },
-          mdxOptions: {
-            gatsbyRemarkPlugins: [
-              {
-                resolve: "gatsby-remark-images",
-                options: {
-                  maxWidth: 1380,
-                  linkImagesToOriginal: false,
-                },
-              },
-              { resolve: "gatsby-remark-copy-linked-files" },
-              { resolve: "gatsby-remark-numbered-footnotes" },
-              { resolve: "gatsby-remark-smartypants" },
-            ],
-            remarkPlugins: [require("remark-slug")],
-          },
-        },
-      },
+
       {
         resolve: "gatsby-source-filesystem",
         options: {
@@ -52,6 +27,38 @@ module.exports = (options = {}) => {
           name: options.assetPath || "content/assets",
         },
       },
+
+      // {
+      //   resolve: "gatsby-framework-blog-mdx",
+      //   options: {
+      //     fsOptions: {
+      //       path: "content/posts",
+      //       name: "mdxPosts",
+      //     },
+      //     mdxOptions: {
+      //       remarkPlugins: [require("remark-slug")],
+      //     },
+      //   },
+      // },
+
+      {
+        resolve: "gatsby-transformer-remark",
+        options: {
+          plugins: [
+            {
+              resolve: "gatsby-remark-images",
+              options: {
+                maxWidth: 1380,
+                linkImagesToOriginal: false,
+              },
+            },
+            { resolve: "gatsby-remark-copy-linked-files" },
+            { resolve: "gatsby-remark-numbered-footnotes" },
+            { resolve: "gatsby-remark-smartypants" },
+          ],
+        },
+      },
+
       "gatsby-transformer-sharp",
       "gatsby-plugin-sharp",
       "gatsby-plugin-react-helmet",

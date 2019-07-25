@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "peerDependencies": {
-    "gatsby": "^2.13.35",
+    "gatsby": "^2.13.39",
     "gatsby-framework-blog": "0.1.0",
     "gatsby-source-filesystem": "^2.1.6",
     "react": "^16.8.6",

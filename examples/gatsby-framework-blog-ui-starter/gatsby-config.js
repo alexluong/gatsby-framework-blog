@@ -1,7 +1,6 @@
 require("dotenv").config()
 
 module.exports = {
-  plugins: ["gatsby-framework-blog-ui"],
   siteMetadata: {
     title: "My Blog Title",
     author: "My Name",
@@ -17,4 +16,20 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    "gatsby-framework-blog-ui",
+
+    {
+      resolve: "gatsby-framework-blog-mdx",
+      options: {
+        fsOptions: {
+          path: "content/posts",
+          name: "mdxPosts",
+        },
+        mdxOptions: {
+          remarkPlugins: [require("remark-slug")],
+        },
+      },
+    },
+  ],
 }

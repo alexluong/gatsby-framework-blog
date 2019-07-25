@@ -1,8 +1,8 @@
 import React from "react"
 import { Styled, css } from "theme-ui"
-import { MDXRenderer } from "gatsby-plugin-mdx"
 import useTitle from "../../hooks/useTitle"
 
+import Body from "gatsby-framework-blog/src/components/Body"
 import PostFooter from "../../components/PostFooter"
 import Layout from "../../components/Layout"
 import SEO from "../../components/Seo"
@@ -24,7 +24,7 @@ const Post = ({ post, location, previous, next }) => {
         >
           {post.date}
         </Styled.p>
-        <MDXRenderer>{post.body}</MDXRenderer>
+        <Body post={post} />
       </main>
       <PostFooter previous={previous} next={next} />
     </Layout>

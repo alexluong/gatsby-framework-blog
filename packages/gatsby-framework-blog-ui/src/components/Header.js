@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import { css, useColorMode, Styled } from "theme-ui"
-import Switch from "./switch"
+import Switch from "./Switch"
 import Bio from "./Bio"
 import sun from "../../assets/sun.png"
 import moon from "../../assets/moon.png"

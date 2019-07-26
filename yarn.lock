@@ -3857,6 +3857,14 @@ deep-is@~0.1.3:
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
   integrity sha1-s2nW+128E+7PUk+RsHD+7cNXzzQ=
 
+deep-map-keys@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/deep-map-keys/-/deep-map-keys-1.2.0.tgz#43418b828ca43d261a8e877b4927e49d0c478cd9"
+  integrity sha1-Q0GLgoykPSYajod7SSfknQxHjNk=
+  dependencies:
+    es6-weak-map "^2.0.1"
+    lodash "^4.13.1"
+
 deep-map@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/deep-map/-/deep-map-1.5.0.tgz#eaa595cb81783ca2800f26a42e09f16e7d4fb890"
@@ -4438,7 +4446,7 @@ es6-symbol@^3.1.1, es6-symbol@~3.1.1:
     d "1"
     es5-ext "~0.10.14"
 
-es6-weak-map@^2.0.2:
+es6-weak-map@^2.0.1, es6-weak-map@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/es6-weak-map/-/es6-weak-map-2.0.3.tgz#b6da1f16cc2cc0d9be43e6bdbfc5e7dfcdf31d53"
   integrity sha512-p5um32HOTO1kP+w7PRnB+5lQ43Z6muuMuIMffvDN8ZB4GcnjLBV6zGStpbASIMk4DCAvEaamhe2zhyCb/QXXsA==
@@ -5690,6 +5698,23 @@ gatsby-source-filesystem@^2.1.6:
     read-chunk "^3.0.0"
     valid-url "^1.0.9"
     xstate "^3.1.0"
+
+gatsby-source-wordpress@^3.1.11:
+  version "3.1.11"
+  resolved "https://registry.yarnpkg.com/gatsby-source-wordpress/-/gatsby-source-wordpress-3.1.11.tgz#ef45748e77effb30a7a798ce924d1f4fa46da808"
+  integrity sha512-0jeq/2mo4ak2azxDcSo6uKwR94hUtnPbnY6y/KXUpGneTlAd/E0VYfMA8tKjvjsU81KBihFWqfvPCW9ECijL9A==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    axios "^0.19.0"
+    better-queue "^3.8.6"
+    bluebird "^3.5.0"
+    deep-map "^1.5.0"
+    deep-map-keys "^1.2.0"
+    gatsby-source-filesystem "^2.1.6"
+    json-stringify-safe "^5.0.1"
+    lodash "^4.17.14"
+    minimatch "^3.0.4"
+    qs "^6.4.0"
 
 gatsby-telemetry@^1.1.7:
   version "1.1.7"
@@ -7991,7 +8016,7 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.11.1, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
+lodash@^4.11.1, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==

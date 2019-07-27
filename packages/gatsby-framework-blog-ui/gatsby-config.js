@@ -2,21 +2,6 @@ require("dotenv").config()
 
 module.exports = (options = {}) => {
   return {
-    siteMetadata: {
-      title: `Blog Title Placeholder`,
-      author: `Name Placeholder`,
-      description: `Description placeholder`,
-      social: [
-        {
-          name: `Twitter`,
-          url: `https://twitter.com/gatsbyjs`,
-        },
-        {
-          name: `GitHub`,
-          url: `https://github.com/gatsbyjs`,
-        },
-      ],
-    },
     plugins: [
       "gatsby-framework-blog",
 
@@ -27,19 +12,6 @@ module.exports = (options = {}) => {
           name: options.assetPath || "content/assets",
         },
       },
-
-      // {
-      //   resolve: "gatsby-framework-blog-mdx",
-      //   options: {
-      //     fsOptions: {
-      //       path: "content/posts",
-      //       name: "mdxPosts",
-      //     },
-      //     mdxOptions: {
-      //       remarkPlugins: [require("remark-slug")],
-      //     },
-      //   },
-      // },
 
       {
         resolve: "gatsby-transformer-remark",
